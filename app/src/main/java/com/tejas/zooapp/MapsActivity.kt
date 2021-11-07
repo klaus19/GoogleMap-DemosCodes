@@ -53,9 +53,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             R.id.terrain_map->{
                 map.mapType = GoogleMap.MAP_TYPE_TERRAIN
             }
-
+           R.id.none_map->{
+               map.mapType = GoogleMap.MAP_TYPE_NONE
+           }
 
         }
+        return true
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
