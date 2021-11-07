@@ -51,5 +51,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             isZoomControlsEnabled=true
 
         }
+
+        //Setting Padding in Map Controls
+        map.setPadding(0,0,300,0)
     }
 }
