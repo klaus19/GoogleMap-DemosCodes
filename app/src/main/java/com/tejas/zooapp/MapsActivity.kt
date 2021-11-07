@@ -2,6 +2,7 @@ package com.tejas.zooapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,6 +12,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MapStyleOptions.loadRawResourceStyle
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tejas.zooapp.databinding.ActivityMapsBinding
@@ -19,7 +22,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var gMarker: Marker
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,8 +61,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
            R.id.none_map->{
                map.mapType = GoogleMap.MAP_TYPE_NONE
 
-
            }
+            R.id.retro->{
+                createStyle(map)
+            }
+            R.id.night->{
+                createNightMode(map)
+            }
 
         }
         return true
@@ -78,5 +86,45 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
 
+        createStyle(map)
+        createNightMode(map)
+
+    }
+
+    //Create a style for the Map
+    private fun createStyle(googleMap:GoogleMap){
+
+        try {
+            val success = googleMap.setMapStyle(
+                     MapStyleOptions.loadRawResourceStyle(
+                         this,
+                          R.raw.style
+                     )
+
+            )
+            if(!success){
+                Log.d("maps","Failed to add style")
+            }
+        }catch (e:Exception){
+            Log.d("Maps",e.toString())
+        }
+    }
+
+    //Create a style for nightmode
+
+    private fun createNightMode(googleMap: GoogleMap){
+        try{
+            val success = googleMap.setMapStyle(
+                     MapStyleOptions.loadRawResourceStyle(
+                         this,
+                          R.raw.night
+                     )
+            )
+            if(!success){
+                Log.d("maps","Failed to add style")
+            }
+        }catch (e:java.lang.Exception){
+            Log.d("Maps",e.toString())
+        }
     }
 }
