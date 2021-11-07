@@ -62,10 +62,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                map.mapType = GoogleMap.MAP_TYPE_NONE
 
            }
-            R.id.retro->{
+            R.id.retro_map->{
                 createStyle(map)
             }
-            R.id.night->{
+            R.id.nightmode_map->{
                 createNightMode(map)
             }
 
