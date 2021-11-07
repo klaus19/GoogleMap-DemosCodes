@@ -13,7 +13,7 @@ import com.tejas.zooapp.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
 
@@ -40,11 +40,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        map = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val vilnius = LatLng(54.693461077718155, 25.28255200044458)
+        map.addMarker(MarkerOptions().position(vilnius).title("Marker in Vilnius"))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(vilnius,10f)) //this method gives a Zoom level in the range 1-20
+
+        map.uiSettings.apply {
+            isZoomControlsEnabled=true
+
+        }
     }
 }
