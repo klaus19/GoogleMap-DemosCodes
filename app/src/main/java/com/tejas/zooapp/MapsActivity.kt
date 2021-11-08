@@ -17,11 +17,18 @@ import com.google.android.gms.maps.model.MapStyleOptions.loadRawResourceStyle
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.tejas.zooapp.databinding.ActivityMapsBinding
+import com.tejas.zooapp.misc.CameraAndViewport
+import com.tejas.zooapp.misc.TypeAndStyle
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    //Lazy initialization
+    private val typeAndStyle by lazy { TypeAndStyle() }
+
+    private val cameraAndViewport by lazy { CameraAndViewport() }
 
 
 
@@ -43,33 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.normal_map->{
-                map.mapType = GoogleMap.MAP_TYPE_NORMAL
-            }
-
-            R.id.hybrid_map->{
-                map.mapType = GoogleMap.MAP_TYPE_HYBRID
-
-            }
-            R.id.satellite_map->{
-                map.mapType = GoogleMap.MAP_TYPE_SATELLITE
-            }
-            R.id.terrain_map->{
-                map.mapType = GoogleMap.MAP_TYPE_TERRAIN
-            }
-           R.id.none_map->{
-               map.mapType = GoogleMap.MAP_TYPE_NONE
-
-           }
-            R.id.retro_map->{
-                createStyle(map)
-            }
-            R.id.nightmode_map->{
-                createNightMode(map)
-            }
-
-        }
+          typeAndStyle.setMapType(item, map)
         return true
     }
 
@@ -79,52 +60,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val vilnius = LatLng(54.693461077718155, 25.28255200044458)
         map.addMarker(MarkerOptions().position(vilnius).title("Marker in Vilnius"))
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(vilnius,10f)) //this method gives a Zoom level in the range 1-20
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(vilnius,10f))
+        map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius)) //this method gives a Zoom level in the range 1-20
 
         map.uiSettings.apply {
             isZoomControlsEnabled=true
 
         }
 
-        createStyle(map)
-        createNightMode(map)
+        typeAndStyle.createStyle(map,this)
+        typeAndStyle.createNightMode(map,this)
 
     }
 
-    //Create a style for the Map
-    private fun createStyle(googleMap:GoogleMap){
 
-        try {
-            val success = googleMap.setMapStyle(
-                     MapStyleOptions.loadRawResourceStyle(
-                         this,
-                          R.raw.style
-                     )
-
-            )
-            if(!success){
-                Log.d("maps","Failed to add style")
-            }
-        }catch (e:Exception){
-            Log.d("Maps",e.toString())
-        }
-    }
-
-    //Create a style for nightmode
-
-    private fun createNightMode(googleMap: GoogleMap){
-        try{
-            val success = googleMap.setMapStyle(
-                     MapStyleOptions.loadRawResourceStyle(
-                         this,
-                          R.raw.night
-                     )
-            )
-            if(!success){
-                Log.d("maps","Failed to add style")
-            }
-        }catch (e:java.lang.Exception){
-            Log.d("Maps",e.toString())
-        }
-    }
 }
