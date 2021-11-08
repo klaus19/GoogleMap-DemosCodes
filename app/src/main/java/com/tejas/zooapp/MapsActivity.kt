@@ -75,13 +75,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         typeAndStyle.createNightMode(map,this)
 
 
-         lifecycleScope.launch {
-             delay(2000L)
-             map.moveCamera(CameraUpdateFactory.zoomBy(3f)) //this method gives a Zoom level in the range 1-20
-
-         }
-
-
 
     }
 
