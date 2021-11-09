@@ -62,19 +62,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val vilnius = LatLng(54.693461077718155, 25.28255200044458)
+        val kaunas = LatLng(54.90331961212234, 23.886743940615055)
         map.addMarker(MarkerOptions().position(vilnius).title("Marker in Vilnius"))
-       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(vilnius,10f))
-        map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius)) //this method gives a Zoom level in the range 1-20
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(vilnius,10f))
+      //  map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius)) //this method gives a Zoom level in the range 1-20
 
         map.uiSettings.apply {
             isZoomControlsEnabled=true
 
         }
 
+
+
+
         typeAndStyle.createStyle(map,this)
         typeAndStyle.createNightMode(map,this)
 
 
+        //move cameraLocation to new location
+       lifecycleScope.launch {
+
+           delay(4000L)
+           map.moveCamera(CameraUpdateFactory.newLatLng(kaunas))
+       }
 
     }
 
