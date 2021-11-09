@@ -88,6 +88,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
            //Deciding map location Bounds
            map.moveCamera(CameraUpdateFactory.newLatLngBounds(cameraAndViewport.kaunasBounds,100))
+           map.setLatLngBoundsForCameraTarget(cameraAndViewport.kaunasBounds)
        }
 
     }
