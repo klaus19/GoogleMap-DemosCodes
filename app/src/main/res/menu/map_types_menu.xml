@@ -22,12 +22,5 @@
         android:title="@string/none"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/retro_map"
-        android:title="Retro Mode"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/nightmode_map"
-        android:title="Night Mode"
-        app:showAsAction="never"/>
 
 </menu>

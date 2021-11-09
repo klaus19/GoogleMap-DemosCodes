@@ -84,7 +84,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
            delay(4000L)
            //map.moveCamera(CameraUpdateFactory.newLatLng(kaunas)) //moving from Vilnius to Kaunas co-ordinates
-           map.moveCamera(CameraUpdateFactory.scrollBy(-200f,100f))  //moving map location by specified parameters
+          // map.moveCamera(CameraUpdateFactory.scrollBy(-200f,100f))  //moving map location by specified parameters
+
+           //Deciding map location Bounds
+           map.moveCamera(CameraUpdateFactory.newLatLngBounds(cameraAndViewport.kaunasBounds,100))
        }
 
     }
