@@ -23,10 +23,11 @@ import com.tejas.zooapp.misc.TypeAndStyle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback{
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var googleMarker: Marker
 
     //Lazy initialization
     private val typeAndStyle by lazy { TypeAndStyle() }
@@ -82,13 +83,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //move cameraLocation to new location
        lifecycleScope.launch {
 
-           delay(4000L)
+           delay(2000L)
            //map.moveCamera(CameraUpdateFactory.newLatLng(kaunas)) //moving from Vilnius to Kaunas co-ordinates
           // map.moveCamera(CameraUpdateFactory.scrollBy(-200f,100f))  //moving map location by specified parameters
 
            //Deciding map location Bounds
-           map.moveCamera(CameraUpdateFactory.newLatLngBounds(cameraAndViewport.kaunasBounds,100))
-           map.setLatLngBoundsForCameraTarget(cameraAndViewport.kaunasBounds)
+          //map.moveCamera(CameraUpdateFactory.newLatLngBounds(cameraAndViewport.kaunasBounds,100))
+           map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius),1000,null)
+           //map.setLatLngBoundsForCameraTarget(cameraAndViewport.kaunasBounds)
+          // map.addMarker(MarkerOptions().position(kaunas).title("Me"))
+          // map.maxZoomLevel
+
+
+           //zooming In
+          // map.animateCamera(CameraUpdateFactory.zoomTo(15f),2000,null)
+
+
        }
 
     }
