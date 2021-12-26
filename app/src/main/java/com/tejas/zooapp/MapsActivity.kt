@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -81,27 +82,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{
 
 
         //move cameraLocation to new location
-       lifecycleScope.launch {
+       // lifecycleScope.launch {
 
-           delay(2000L)
-           //map.moveCamera(CameraUpdateFactory.newLatLng(kaunas)) //moving from Vilnius to Kaunas co-ordinates
-          // map.moveCamera(CameraUpdateFactory.scrollBy(-200f,100f))  //moving map location by specified parameters
+         //  delay(2000L)
 
-           //Deciding map location Bounds
-          //map.moveCamera(CameraUpdateFactory.newLatLngBounds(cameraAndViewport.kaunasBounds,100))
-           map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius),1000,null)
-           //map.setLatLngBoundsForCameraTarget(cameraAndViewport.kaunasBounds)
-          // map.addMarker(MarkerOptions().position(kaunas).title("Me"))
-          // map.maxZoomLevel
+       //    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraAndViewport.vilnius),1000,null)
 
-
-           //zooming In
-          // map.animateCamera(CameraUpdateFactory.zoomTo(15f),2000,null)
-
+          onMapClicked()
+          onMapLongClicked()
 
        }
+    private fun onMapClicked(){
 
+        map.setOnMapClickListener {
+            Toast.makeText(this,"Single Clicked",Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun onMapLongClicked(){
+        map.setOnMapLongClickListener {
+            map.addMarker(MarkerOptions().position(it).title("New Marker"))
+        }
     }
 
 
 }
+
+
+
+
